@@ -1,1 +1,4 @@
 In this catalog you see the iso and bin file of Moon OS Delta. Bin file tested on QEMU and ISO file tested on Vmware
+For load in QEMU use:
+  * qemu-system-i386 -kernel kernel.bin -display curses -net none
+  * qemu-system-i386 -cdrom moonos.iso -hda <your hdd> -display curses -net none -serial stdio
