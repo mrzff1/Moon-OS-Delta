@@ -27,5 +27,7 @@ About the product:
 * The project is over a month and a half old.
 
 * ISO builds for VMware and bin files for QEMU are available.
+
 Before using the operating system, please read the license terms in the LICENCE.txt file (both Russian and English versions are included).
+
 Documentation for the MDcode system programming language is located in the DOCUMENTATION_MDCODE.txt file.
