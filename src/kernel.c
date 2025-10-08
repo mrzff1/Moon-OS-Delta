@@ -787,7 +787,7 @@ void check_comm(const char* comm){
 				push_text(buffer);
 			}
 			else{		
-				push_text("\nError: file not found!");
+				push_text("\nError: file not found");
 			}
 			
 		}
@@ -823,12 +823,12 @@ void check_comm(const char* comm){
 			char* dur_str = strtok((void *)0, " ");
         
 			if (!strtodig(freq_str, &freq)) {
-				push_text("\nInvalid frequency format!");
+				push_text("\nInvalid frequency format");
 				return;
 			}
         
 			if (dur_str && !strtodig(dur_str, &duration)) {
-				push_text("\nInvalid duration format!");
+				push_text("\nInvalid duration format");
 				return;
 			}
 
@@ -857,7 +857,7 @@ void check_comm(const char* comm){
 	else if (streq(comm, "lddsk") == 0){
 		if (args && *args) {
 			if (input_mode){
-				push_text("\nRun time warning! Command lddsk blocked in execute mode!");
+				push_text("\nRun time warning! Command lddsk blocked in execute mode");
 				return;
 			}
 			else {
@@ -932,7 +932,7 @@ void check_comm(const char* comm){
 			}
 			else{
 				if (input_mode){
-					push_text("\nRun time warning! Command exec blocked in execute mode!");
+					push_text("\nRun time warning! Command exec blocked in execute mode");
 					return;
 				}
 				else{
@@ -958,7 +958,7 @@ void check_comm(const char* comm){
 					}
 				
 					if (!is_find){
-						push_text("\nFile not found!");
+						push_text("\nFile not found");
 					}
 				}
 				
@@ -1008,7 +1008,7 @@ void check_comm(const char* comm){
 	}
 	else if (streq(comm, "hltmode") == 0){
 		if (input_mode){
-			push_text("\nRun time warning! Command hltmode blocked in execute mode!");
+			push_text("\nRun time warning! Command hltmode blocked in execute mode");
 			return;
 		}
 		else {
@@ -1028,16 +1028,16 @@ void check_comm(const char* comm){
 				while (*command == ' ') command++;
 				
 				if (strlen(name) >= MAX_DUMMY_NAME) {
-					push_text("\nError: too long name!");
+					push_text("\nError: too long name");
 				} 
 				else if (strlen(command) >= MAX_DUMMY_SIZE) {
-					push_text("\nError: too long data!");
+					push_text("\nError: too long data");
 				}
 				else {
 					short found = 0;
 					for (short i = 0; i < MAX_DUMMY; i++) {
 						if (streq(comdummies[i].name, name) == 0 && comdummies[i].used) {
-							push_text("\nError: this comdummy was init before!");
+							push_text("\nError: this comdummy was init before");
 							found = 1;
 							break;
 						}
@@ -1046,7 +1046,7 @@ void check_comm(const char* comm){
 						if (comdummy_count < MAX_DUMMY) {
 							//list of reserved names (command names)
 							if ( comdummies[comdummy_count].name == "help" || comdummies[comdummy_count].name == "cls" || comdummies[comdummy_count].name == "echo" || comdummies[comdummy_count].name == "logoff" || comdummies[comdummy_count].name == "rest" || comdummies[comdummy_count].name == "abt" || comdummies[comdummy_count].name == "mdver" || comdummies[comdummy_count].name == "time" || comdummies[comdummy_count].name == "touch" || comdummies[comdummy_count].name == "wr" || comdummies[comdummy_count].name == "rd" || comdummies[comdummy_count].name == "del" || comdummies[comdummy_count].name == "erase" || comdummies[comdummy_count].name == "ls" || comdummies[comdummy_count].name == "add" || comdummies[comdummy_count].name == "rnm" || comdummies[comdummy_count].name == "beep" || comdummies[comdummy_count].name == "lddsk" || comdummies[comdummy_count].name == "svdsk" || comdummies[comdummy_count].name == "lsdevs" || comdummies[comdummy_count].name == "formt" || comdummies[comdummy_count].name == "exec" || comdummies[comdummy_count].name == "comdummy" || comdummies[comdummy_count].name == "lscomdum" || comdummies[comdummy_count].name == "chcomdum"){
-								push_text("\nError: Used reserved word in name!");
+								push_text("\nError: incorrect name (reserved by system)");
 								return;
 							}
 							
@@ -1068,7 +1068,7 @@ void check_comm(const char* comm){
 	}
 	else if (streq(comm, "lscomdum") == 0){
 		if ( comdummy_count == 0) {
-			push_text("\nCreated comdummy not found!");
+			push_text("\nCreated comdummy not found");
 		} else {
 			push_text("\nFound comdummy:\n");
 			for (int i = 0; i < MAX_DUMMY; i++) {
@@ -1095,23 +1095,23 @@ void check_comm(const char* comm){
 				while (*command == ' ') command++;
 				
 				if (strlen(name) >= MAX_DUMMY_NAME) {
-					push_text("\nError: too long name!");
+					push_text("\nError: too long name");
 				} 
 				else if (strlen(command) >= MAX_DUMMY_SIZE) {
-					push_text("\nError: too long data!");
+					push_text("\nError: too long data");
 				}
 				else {
 					short found = 0;
 					for (short i = 0; i < MAX_DUMMY; i++) {
 						if (streq(comdummies[i].name, name) == 0 && comdummies[i].used) {
 							strcopy(comdummies[i].value, command);
-							push_text("\nComdummy data was updated!");
+							push_text("\nComdummy data was updated");
 							found = 1;
 							break;
 						}
 					}
 					if (found == 0) {
-						push_text("\nComdummy not found!");
+						push_text("\nComdummy not found");
 					}
 				}
 			}
@@ -1581,7 +1581,7 @@ int file_del(const char *filename){
 		}
 	}
 	
-	push_text("Error: file not found!");
+	push_text("Error: file not found");
 	
 	return -1;
 }
@@ -1921,7 +1921,7 @@ void mdfs_format(const char * dev_name) {
 	asm volatile("cli");
 	
 	if (in_format){
-		push_text("\nRecursive format call blocked!");
+		push_text("\nError: bad recursion");
 		in_format = 0;
 		return;
 	}
@@ -1930,14 +1930,14 @@ void mdfs_format(const char * dev_name) {
 	ide_reset();
 	
 	if (!chkdsk()){
-		push_text("\nNo disk detected! Cannot detected");
+		push_text("\nError:no disk detected! Cannot detected");
 		in_format = 0;
 		return;
 	}
 	
 	if (storage_devices[get_dev(dev_name)].readonly){
 		in_format = 0;
-		push_text("\nCannot format readonly device!");
+		push_text("\nCannot format readonly device");
 		return;
 	}
 	
@@ -1982,7 +1982,7 @@ void mdfs_format(const char * dev_name) {
 	
 	asm volatile("sti");
 	
-	push_text("\nDisk formated!");
+	push_text("\nDisk formatted successfully");
 	
 	in_format = 0;
 }
@@ -2055,7 +2055,7 @@ void svdsk(){
 		}
 	}
 	
-	push_text("\nFilesystem saved successfully!");
+	push_text("\nFilesystem saved successfully");
 
 	asm volatile("sti");
 }
@@ -2065,7 +2065,7 @@ void lddsk(const char * dev_name){
 	asm volatile ("cli");
 
 	if (get_dev(dev_name) == -1 || !storage_devices[get_dev(dev_name)].available){
-		push_text("\nError - device not available!");
+		push_text("\nError: device not available");
 		asm volatile ("sti");
 		return;
 	}
@@ -2082,7 +2082,7 @@ void lddsk(const char * dev_name){
 	}
 	
 	if (sb.magic[0] != 'M' && sb.magic[1] != 'D' && sb.magic[2] != 'F' && sb.magic[3] != 'S'){
-		push_text("\nInvalid filesystem! Format disc first!");
+		push_text("\nError: invalid filesystem. Please format disk first");
 		asm volatile ("sti");
 		return;
 	}
@@ -2401,15 +2401,15 @@ int file_rnm(const char* old_filename, const char* new_filename){
 		}
 	}
 	
-	push_text("\nFile ");
+	push_text("\nError: file ");
 	push_text(old_filename);
-	push_text(" not found!");
+	push_text(" not found");
 	return -2;
 	
 	EXIT_ST_ONE:
-		push_text("\nFilename ");
+		push_text("\nError:file with name ");
 		push_text(new_filename);
-		push_text(" is used before!");
+		push_text(" was created before");
 	    return -1;
 }
 
@@ -2428,4 +2428,5 @@ void hltmode(){
 	}
 	
 	push_text("System waking up...");
+
 }
