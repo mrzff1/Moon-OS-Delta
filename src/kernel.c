@@ -237,6 +237,8 @@ struct tss_entry tss;
 unsigned char kernel_stack[KERNEL_STACK_SIZE] __attribute__((aligned(16)));
 
 //Keyboard scancodes for work with keyboard
+// Please, write driver for keyboards in different file
+// Please, write driver loader class
 static const char scancodes[128] = {
 	0, 27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b',
     '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',
@@ -857,7 +859,7 @@ void check_comm(const char* comm){
 	else if (streq(comm, "lddsk") == 0){
 		if (args && *args) {
 			if (input_mode){
-				push_text("\nRun time warning! Command lddsk blocked in execute mode!");
+				push_text("\nRuntime warning: Command lddsk blocked in execute mode!");
 				return;
 			}
 			else {
@@ -932,7 +934,7 @@ void check_comm(const char* comm){
 			}
 			else{
 				if (input_mode){
-					push_text("\nRun time warning! Command exec blocked in execute mode!");
+					push_text("\nRuntime warning: Command exec blocked in execute mode!");
 					return;
 				}
 				else{
@@ -1008,7 +1010,7 @@ void check_comm(const char* comm){
 	}
 	else if (streq(comm, "hltmode") == 0){
 		if (input_mode){
-			push_text("\nRun time warning! Command hltmode blocked in execute mode!");
+			push_text("\nRuntime warning: Command hltmode blocked in execute mode!");
 			return;
 		}
 		else {
@@ -2368,12 +2370,12 @@ void interpret_program(unsigned char *program){
 				break;
 			}
 			default:
-				push_text("\nRun time error! Unknown operation code!\nExit the program...\n");
+				push_text("\nFatal runtime error: unknown operation code!\nStopping...\n");
 				input_mode = 0;
 				return;
 		}
 		if (state.stack_pointer >= sizeof(state.work_stack)) {
-			push_text("\nRun time error! Stack overflow!\nExit the program...\n");
+			push_text("\nFatal runtime error: Stack overflow.\nStopping...\n");
 			input_mode = 0;
 			return;
 		}
@@ -2403,13 +2405,13 @@ int file_rnm(const char* old_filename, const char* new_filename){
 	
 	push_text("\nFile ");
 	push_text(old_filename);
-	push_text(" not found!");
+	push_text(" not found");
 	return -2;
 	
 	EXIT_ST_ONE:
 		push_text("\nFilename ");
 		push_text(new_filename);
-		push_text(" is used before!");
+		push_text(" is already in use");
 	    return -1;
 }
 
@@ -2428,4 +2430,5 @@ void hltmode(){
 	}
 	
 	push_text("System waking up...");
+
 }
